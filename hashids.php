@@ -1,3 +1,4 @@
 <?php
-echo (new Hashids('', 0))->encode(1, 2, 3, 4, 5) . "\n";
+echo (new Hashids(''))->encode(1, 2, 3, 4, 5) . "\n";
 
+var_dump((new Hashids(''))->decode("J4aVoWzJiR"));

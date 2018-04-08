@@ -207,13 +207,12 @@ void hashids_free(hashids_t *hashids)
 // Hashids construct.
 PHP_METHOD(hashids, __construct) {
 
-	zval *self 	= getThis();
-	zend_string *salt = NULL, *alphabet = NULL;
-	zend_long min_hash_length = 0;
+    zend_string *salt = NULL, *alphabet = NULL;
+    zend_long min_hash_length = 0;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "|SlS", &salt, &min_hash_length, &alphabet) == FAILURE) {
-		return;
-	}
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "|SlS", &salt, &min_hash_length, &alphabet) == FAILURE) {
+        return;
+    }
 
     //not empty salt
     if (salt != NULL) {
@@ -230,7 +229,10 @@ PHP_METHOD(hashids, __construct) {
         HASHIDS_G(alphabet) = ZSTR_VAL(alphabet);
     }
 
-	hashids_entry = hashids_init(HASHIDS_G(salt), HASHIDS_G(min_hash_length), HASHIDS_G(alphabet));
+    //if the modified one reset
+    if (salt != NULL || min_hash_length || alphabet != NULL) {
+	    hashids_entry = hashids_init(HASHIDS_G(salt), HASHIDS_G(min_hash_length), HASHIDS_G(alphabet));
+    }
 
 	RETURN_TRUE;
 }
@@ -277,9 +279,35 @@ PHP_METHOD(hashids, encode) {
     RETURN_STRING(hash);
 }
 
+//hashids decode
+PHP_METHOD(hashids, decode) {
+
+    int i;
+    zend_string *hash = NULL;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "S", &hash) == FAILURE) {
+        return;
+    }
+
+    //get numbers count
+    size_t numbers_count = hashids_numbers_count(hashids_entry, ZSTR_VAL(hash));
+
+    //decode
+    unsigned long long numbers[numbers_count];
+    hashids_decode(hashids_entry, ZSTR_VAL(hash), numbers);
+
+    //array init
+    array_init_size(return_value, numbers_count);
+    
+    for (i = 0; i < numbers_count; i++) {
+        add_next_index_long(return_value, numbers[i]);
+    }
+}
+
 static const zend_function_entry hashids_methods[] = {
 	PHP_ME(hashids, __construct, arginfo__construct, ZEND_ACC_CTOR | ZEND_ACC_PUBLIC)
 	PHP_ME(hashids, encode, NULL, ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, decode, NULL, ZEND_ACC_PUBLIC)
 	PHP_FE_END
 };
 
