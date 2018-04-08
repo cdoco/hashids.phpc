@@ -33,14 +33,14 @@ hashids_t *hashids_entry;
 ZEND_DECLARE_MODULE_GLOBALS(hashids)
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo__construct, 0, 0, 3)
-	ZEND_ARG_INFO(0, salt)
-	ZEND_ARG_INFO(0, min_hash_length)
-	ZEND_ARG_INFO(0, alphabet)
+    ZEND_ARG_INFO(0, salt)
+    ZEND_ARG_INFO(0, min_hash_length)
+    ZEND_ARG_INFO(0, alphabet)
 ZEND_END_ARG_INFO()
 
 PHP_INI_BEGIN()
     STD_PHP_INI_ENTRY("hashids.salt", HASHIDS_DEFAULT_SALT, PHP_INI_ALL, OnUpdateString, salt, zend_hashids_globals, hashids_globals)
-	STD_PHP_INI_ENTRY("hashids.min_hash_length", "0", PHP_INI_ALL, OnUpdateLong, min_hash_length, zend_hashids_globals, hashids_globals)
+    STD_PHP_INI_ENTRY("hashids.min_hash_length", "0", PHP_INI_ALL, OnUpdateLong, min_hash_length, zend_hashids_globals, hashids_globals)
     STD_PHP_INI_ENTRY("hashids.alphabet", HASHIDS_DEFAULT_ALPHABET, PHP_INI_ALL, OnUpdateString, alphabet, zend_hashids_globals, hashids_globals)
 PHP_INI_END()
 
@@ -234,7 +234,7 @@ PHP_METHOD(hashids, __construct) {
 	    hashids_entry = hashids_init(HASHIDS_G(salt), HASHIDS_G(min_hash_length), HASHIDS_G(alphabet));
     }
 
-	RETURN_TRUE;
+    RETURN_TRUE;
 }
 
 PHP_METHOD(hashids, encode) {
@@ -274,7 +274,7 @@ PHP_METHOD(hashids, encode) {
     }
 
     //encode
-	hashids_encode(hashids_entry, hash, sizeof(numbers) / sizeof(unsigned long long), numbers);
+    hashids_encode(hashids_entry, hash, sizeof(numbers) / sizeof(unsigned long long), numbers);
 
     RETURN_STRING(hash);
 }
@@ -298,45 +298,77 @@ PHP_METHOD(hashids, decode) {
 
     //array init
     array_init_size(return_value, numbers_count);
-    
+
     for (i = 0; i < numbers_count; i++) {
         add_next_index_long(return_value, numbers[i]);
     }
 }
 
+//hashids encodeHex
+PHP_METHOD(hashids, encodeHex) {
+
+    char hash[512];
+    zend_string *hex_str = NULL;
+    
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "S", &hex_str) == FAILURE) {
+        return;
+    }
+
+    //encode
+    hashids_encode_hex(hashids_entry, hash, ZSTR_VAL(hex_str));
+    RETURN_STRING(hash);
+}
+
+//hashids decodeHex
+PHP_METHOD(hashids, decodeHex) {
+
+    zend_string *hash = NULL;
+    char hex_str[sizeof(unsigned long long) * 2 + 2];
+    
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "S", &hash) == FAILURE) {
+        return;
+    }
+
+    //decode
+    hashids_decode_hex(hashids_entry, ZSTR_VAL(hash), hex_str);
+    RETURN_STRING(hex_str);
+}
+
 static const zend_function_entry hashids_methods[] = {
-	PHP_ME(hashids, __construct, arginfo__construct, ZEND_ACC_CTOR | ZEND_ACC_PUBLIC)
-	PHP_ME(hashids, encode, NULL, ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, __construct, arginfo__construct, ZEND_ACC_CTOR | ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, encode, NULL, ZEND_ACC_PUBLIC)
     PHP_ME(hashids, decode, NULL, ZEND_ACC_PUBLIC)
-	PHP_FE_END
+    PHP_ME(hashids, encodeHex, NULL, ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, decodeHex, NULL, ZEND_ACC_PUBLIC)
+    PHP_FE_END
 };
 
 PHP_MINIT_FUNCTION(hashids)
 {
     REGISTER_INI_ENTRIES();
 
-	zend_class_entry ce;
-   	INIT_CLASS_ENTRY(ce, "Hashids", hashids_methods);
+    zend_class_entry ce;
+    INIT_CLASS_ENTRY(ce, "Hashids", hashids_methods);
 
-	hashids_ce = zend_register_internal_class(&ce);
+    hashids_ce = zend_register_internal_class(&ce);
     hashids_entry = hashids_init(HASHIDS_G(salt), HASHIDS_G(min_hash_length), HASHIDS_G(alphabet));
 
-	return SUCCESS;
+    return SUCCESS;
 }
 
 PHP_MSHUTDOWN_FUNCTION(hashids)
 {
     //free
     hashids_free(hashids_entry);
-	return SUCCESS;
+    return SUCCESS;
 }
 
 PHP_MINFO_FUNCTION(hashids)
 {
-	php_info_print_table_start();
-	php_info_print_table_header(2, "hashids support", "enabled");
-	php_info_print_table_row(2, "Version", PHP_HASHIDS_VERSION);
-	php_info_print_table_end();
+    php_info_print_table_start();
+    php_info_print_table_header(2, "hashids support", "enabled");
+    php_info_print_table_row(2, "Version", PHP_HASHIDS_VERSION);
+    php_info_print_table_end();
 
     DISPLAY_INI_ENTRIES();
 }
@@ -695,33 +727,6 @@ size_t hashids_encode(hashids_t *hashids, char *buffer, size_t numbers_count, un
     return result_len;
 }
 
-/* encode many (variadic) */
-size_t hashids_encode_v(hashids_t *hashids, char *buffer, size_t numbers_count, ...)
-{
-    int i;
-    size_t result;
-    unsigned long long *numbers;
-    va_list ap;
-
-    numbers = _hashids_alloc(numbers_count * sizeof(unsigned long long));
-
-    if (HASHIDS_UNLIKELY(!numbers)) {
-        hashids_errno = HASHIDS_ERROR_ALLOC;
-        return 0;
-    }
-
-    va_start(ap, numbers_count);
-    for (i = 0; i < numbers_count; ++i) {
-        numbers[i] = va_arg(ap, unsigned long long);
-    }
-    va_end(ap);
-
-    result = hashids_encode(hashids, buffer, numbers_count, numbers);
-    _hashids_free(numbers);
-
-    return result;
-}
-
 /* numbers count */
 size_t hashids_numbers_count(hashids_t *hashids, char *str)
 {
@@ -933,16 +938,16 @@ size_t hashids_decode_hex(hashids_t *hashids, char *str, char *output)
 }
 
 zend_module_entry hashids_module_entry = {
-	STANDARD_MODULE_HEADER,
-	"hashids",
-	hashids_methods,
-	PHP_MINIT(hashids),
-	PHP_MSHUTDOWN(hashids),
-	NULL,
-	NULL,
-	PHP_MINFO(hashids),
-	PHP_HASHIDS_VERSION,
-	STANDARD_MODULE_PROPERTIES
+    STANDARD_MODULE_HEADER,
+    "hashids",
+    hashids_methods,
+    PHP_MINIT(hashids),
+    PHP_MSHUTDOWN(hashids),
+    NULL,
+    NULL,
+    PHP_MINFO(hashids),
+    PHP_HASHIDS_VERSION,
+    STANDARD_MODULE_PROPERTIES
 };
 
 #ifdef COMPILE_DL_HASHIDS
