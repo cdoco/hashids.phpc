@@ -296,6 +296,13 @@ PHP_MINIT_FUNCTION(hashids)
 	return SUCCESS;
 }
 
+PHP_MSHUTDOWN_FUNCTION(hashids)
+{
+    //free
+    hashids_free(hashids_entry);
+	return SUCCESS;
+}
+
 PHP_MINFO_FUNCTION(hashids)
 {
 	php_info_print_table_start();
@@ -902,7 +909,7 @@ zend_module_entry hashids_module_entry = {
 	"hashids",
 	hashids_methods,
 	PHP_MINIT(hashids),
-	NULL,
+	PHP_MSHUTDOWN(hashids),
 	NULL,
 	NULL,
 	PHP_MINFO(hashids),
