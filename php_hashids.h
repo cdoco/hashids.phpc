@@ -45,7 +45,7 @@ extern zend_module_entry hashids_module_entry;
 #define HASHIDS_DEFAULT_ALPHABET "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 
 /* default separators */
-#define HASHIDS_DEFAULT_SEPARATORS "gaozihang"
+#define HASHIDS_DEFAULT_SEPARATORS "cfhistuCFHISTU"
 
 /* error codes */
 #define HASHIDS_ERROR_OK                0
