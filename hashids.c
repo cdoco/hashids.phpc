@@ -332,10 +332,10 @@ PHP_METHOD(hashids, decodeHex) {
 
 static const zend_function_entry hashids_methods[] = {
     PHP_ME(hashids, __construct, arginfo__construct, ZEND_ACC_CTOR | ZEND_ACC_PUBLIC)
-    PHP_ME(hashids, encode, NULL, ZEND_ACC_PUBLIC)
-    PHP_ME(hashids, decode, NULL, ZEND_ACC_PUBLIC)
-    PHP_ME(hashids, encodeHex, NULL, ZEND_ACC_PUBLIC)
-    PHP_ME(hashids, decodeHex, NULL, ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, encode, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, decode, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, encodeHex, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, decodeHex, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
     PHP_FE_END
 };
 
