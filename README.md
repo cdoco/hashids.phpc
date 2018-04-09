@@ -18,15 +18,22 @@ $ ./configure
 $ make && make install
 ```
 
-php.ini
+you can set some options in php.ini, or set in the constructor.
+i suggest you in php.ini setting, so you will get better performance.
 
 ```ini
 [hashids]
 extension=hashids.so
 
+//default is empty
 hashids.salt=cdoco
+
+//default: 0
 hashids.min_hash_length=20
-hashids.alphabet=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
+
+//default: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
+//you can use to set it according to your own, for example, is set to all lowercase
+hashids.alphabet=abcdefghijklmnopqrstuvwxyz
 ```
 
 ## Quick Example
