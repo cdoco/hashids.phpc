@@ -1,6 +1,9 @@
-# hashids.phpc
+<div align=center>
+    <p><img src="https://camo.githubusercontent.com/d9ac39c754c40fae6d66696037c3a33540c2bd09/687474703a2f2f686173686964732e6f72672f7075626c69632f696d672f686173686964732e676966" alt="Hashids"/></p>
+    <a target="_blank" href="https://opensource.org/licenses/MIT" title="License: MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
+</div>
 
-A php extension for Hashids
+> A php extension for Hashids
 
 ## Requirement
 
