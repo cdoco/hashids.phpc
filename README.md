@@ -2,24 +2,62 @@
 
 A php extension for Hashids
 
-## Example
+## Requirement
 
-```php
-echo (new Hashids('', 0))->encode(1, 2, 3, 4, 5) . "\n";
+- PHP 7 +
+
+## Install
+
+```shell
+$ git clone https://github.com/cdoco/hashids.phpc.git
+$ phpize
+$ ./configure
+$ make && make install
 ```
 
-```php
-echo (new Hashids('', 0))->encode([1, 2, 3, 4, 5]) . "\n";
+php.ini
+
+```ini
+[hashids]
+extension=hashids.so
+
+hashids.salt=cdoco
+hashids.min_hash_length=20
+hashids.alphabet=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
 ```
 
-```php
-var_dump((new Hashids(''))->decode("J4aVoWzJiR"));
-```
+## Quick Example
 
 ```php
-echo (new Hashids('hhhhh', 30))->encodeHex('C0FFEE') . "\n";
+$hashids = new Hashids();
+
+$hash = $hashids->encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
+$numbers = $hashids->decode($hash); // [1, 2, 3, 4, 5]
 ```
 
+## Other
+
 ```php
-echo (new Hashids('hhhhh', 30))->decodeHex('Jq8PxAv5MIBpyv2A9L7S0sRN6WuUHT') . "\n";
+$hashids = new Hashids();
+
+$hash = $hashids->encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
+$hash = $hashids->encode([1, 2, 3, 4, 5]); // ADf9h9i0sQ
+```
+
+### construct parameter
+
+```php
+new Hashids(string $salt, int $min_hash_length, string $alphabet);
+
+//example
+new Hashids("this is salt.", 20, 'abcdefghijklmnopqrstuvwxyz');
+```
+
+### Hex
+
+```php
+$hashids = new Hashids();
+
+$hash = $hashids->encodeHex('FFFFDD'); // rYKPAK
+$numbers = $hashids->decodeHex($hash); // FFFFDD
 ```

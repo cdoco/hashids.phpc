@@ -68,8 +68,7 @@ int * __hashids_errno_addr() {
 }
 
 /* default alloc() implementation */
-static inline void *
-hashids_alloc_f(size_t size) {
+static inline void * hashids_alloc_f(size_t size) {
     return calloc(size, 1);
 }
 
@@ -231,7 +230,7 @@ PHP_METHOD(hashids, __construct) {
 
     //if the modified one reset
     if (salt != NULL || min_hash_length || alphabet != NULL) {
-	    hashids_entry = hashids_init(HASHIDS_G(salt), HASHIDS_G(min_hash_length), HASHIDS_G(alphabet));
+        hashids_entry = hashids_init(HASHIDS_G(salt), HASHIDS_G(min_hash_length), HASHIDS_G(alphabet));
     }
 
     RETURN_TRUE;
@@ -256,9 +255,7 @@ PHP_METHOD(hashids, encode) {
     unsigned long long numbers[Z_TYPE(args[0]) == IS_ARRAY ? zend_array_count(Z_ARRVAL(args[0])) : argc];
 
     if (Z_TYPE(args[0]) == IS_ARRAY) {
-        //convert to array
-        convert_to_array_ex(&args[0]);
-        zval *value;
+        zval *value = NULL;
 
         ZEND_HASH_FOREACH_NUM_KEY_VAL(Z_ARRVAL(args[0]), i, value) {
             numbers[i] = Z_LVAL_P(value);
@@ -275,7 +272,6 @@ PHP_METHOD(hashids, encode) {
 
     //encode
     hashids_encode(hashids_entry, hash, sizeof(numbers) / sizeof(unsigned long long), numbers);
-
     RETURN_STRING(hash);
 }
 

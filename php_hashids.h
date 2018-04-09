@@ -116,7 +116,7 @@ size_t hashids_decode_hex(hashids_t *hashids, char *str, char *output);
 #define HASHIDS_G(v) ZEND_MODULE_GLOBALS_ACCESSOR(hashids, v)
 
 ZEND_BEGIN_MODULE_GLOBALS(hashids)
-	char      *salt;
+  char      *salt;
   zend_long min_hash_length;
   char      *alphabet;
 ZEND_END_MODULE_GLOBALS(hashids)
