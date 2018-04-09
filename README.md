@@ -45,6 +45,12 @@ $hash = $hashids->encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
 $numbers = $hashids->decode($hash); // [1, 2, 3, 4, 5]
 ```
 
+## Performance
+
+php extension and native php performance contrast.
+
+![performance comparison](https://cdoco.com/images/performance.png)
+
 ## Other
 
 ```php
