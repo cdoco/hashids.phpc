@@ -53,7 +53,7 @@ new Hashids(string $salt, int $min_hash_length, string $alphabet);
 new Hashids("this is salt.", 20, 'abcdefghijklmnopqrstuvwxyz');
 ```
 
-### Hex
+### hex
 
 ```php
 $hashids = new Hashids();
