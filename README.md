@@ -47,7 +47,7 @@ $hash = $hashids->encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
 $hash = $hashids->encode([1, 2, 3, 4, 5]); // ADf9h9i0sQ
 ```
 
-### construct parameter
+construct parameter.
 
 ```php
 new Hashids(string $salt, int $min_hash_length, string $alphabet);
@@ -56,7 +56,7 @@ new Hashids(string $salt, int $min_hash_length, string $alphabet);
 new Hashids("this is salt.", 20, 'abcdefghijklmnopqrstuvwxyz');
 ```
 
-### hex
+hex.
 
 ```php
 $hashids = new Hashids();
