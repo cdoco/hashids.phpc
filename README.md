@@ -76,3 +76,20 @@ $hashids = new Hashids();
 $hash = $hashids->encodeHex('FFFFDD'); // rYKPAK
 $numbers = $hashids->decodeHex($hash); // FFFFDD
 ```
+
+Curses! #$%@
+
+-------
+
+This code was written with the intent of placing created ids in visible places, like the URL. Therefore, the algorithm tries to avoid generating most common English curse words by generating ids that never have the following letters next to each other:
+
+    c, f, h, i, s, t, u
+
+License
+
+-------
+
+MIT License. See the [LICENSE](LICENSE) file. You can use Hashids in open source projects and commercial products. Don't break the Internet. Kthxbye.
+
+[license-url]: https://github.com/cdoco/grank/blob/master/LICENSE
+[license-image]: https://img.shields.io/badge/License-MIT-blue.svg
