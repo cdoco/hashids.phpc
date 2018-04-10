@@ -339,6 +339,12 @@ static const zend_function_entry hashids_methods[] = {
     PHP_FE_END
 };
 
+PHP_GINIT_FUNCTION(hashids) {
+    hashids_globals->salt = NULL;
+    hashids_globals->min_hash_length = 0;
+    hashids_globals->alphabet = HASHIDS_DEFAULT_ALPHABET;
+}
+
 PHP_MINIT_FUNCTION(hashids)
 {
     REGISTER_INI_ENTRIES();

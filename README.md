@@ -12,7 +12,8 @@
 
 ```shell
 $ git clone https://github.com/cdoco/hashids.phpc.git
-$ cd hashids.phpc && phpize && ./configure && make && make install
+$ cd hashids.phpc
+$ phpize && ./configure && make && make install
 ```
 
 you can set some options in php.ini, or set in the constructor.
