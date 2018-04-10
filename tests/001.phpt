@@ -10,14 +10,14 @@ $hashids = new Hashids();
 $hash = $hashids->encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
 $numbers = $hashids->decode($hash); // [1, 2, 3, 4, 5]
 
-echo $hash;
+echo $hash . "\n";
 print_r($numbers);
 
 //or would you prefer to use a static method call
 $hash = Hashids::encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
 $numbers = Hashids::decode($hash); // [1, 2, 3, 4, 5]
 
-echo $hash;
+echo $hash . "\n";
 print_r($numbers);
 
 //decode
@@ -28,12 +28,13 @@ print_r($numbers);
 $hash = $hashids->encodeHex('FFFFDD'); // rYKPAK
 $hex = $hashids->decodeHex('rYKPAK'); // FFFFDD
 
-echo $hash;
+echo $hash . "\n";
 echo $hex;
 
 ?>
 --EXPECT--
-ADf9h9i0sQArray
+ADf9h9i0sQ
+Array
 (
     [0] => 1
     [1] => 2
@@ -41,7 +42,8 @@ ADf9h9i0sQArray
     [3] => 4
     [4] => 5
 )
-ADf9h9i0sQArray
+ADf9h9i0sQ
+Array
 (
     [0] => 1
     [1] => 2
@@ -57,4 +59,5 @@ Array
     [3] => 4
     [4] => 5
 )
-rYKPAKFFFFDD
+rYKPAK
+FFFFDD
