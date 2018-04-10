@@ -4,60 +4,16 @@ Check for hashids presence
 <?php if (!extension_loaded("hashids")) print "skip"; ?>
 --FILE--
 <?php
-
-$hashids = new Hashids();
-
-$hash = $hashids->encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
-$numbers = $hashids->decode($hash); // [1, 2, 3, 4, 5]
-
-echo $hash . "\n";
-print_r($numbers);
-
-//or would you prefer to use a static method call
-$hash = Hashids::encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
-$numbers = Hashids::decode($hash); // [1, 2, 3, 4, 5]
-
-echo $hash . "\n";
-print_r($numbers);
-
-//decode
-$numbers = $hashids->decode("ADf9h9i0sQ");
-print_r($numbers);
-
-//encodeHex
-$hash = $hashids->encodeHex('FFFFDD'); // rYKPAK
-$hex = $hashids->decodeHex('rYKPAK'); // FFFFDD
-
-echo $hash . "\n";
-echo $hex;
-
+echo "hashids extension is available";
+/*
+	you can add regression tests for your extension here
+  the output of your test code has to be equal to the
+  text in the --EXPECT-- section below for the tests
+  to pass, differences between the output and the
+  expected text are interpreted as failure
+  see php5/README.TESTING for further information on
+  writing regression tests
+*/
 ?>
 --EXPECT--
-ADf9h9i0sQ
-Array
-(
-    [0] => 1
-    [1] => 2
-    [2] => 3
-    [3] => 4
-    [4] => 5
-)
-ADf9h9i0sQ
-Array
-(
-    [0] => 1
-    [1] => 2
-    [2] => 3
-    [3] => 4
-    [4] => 5
-)
-Array
-(
-    [0] => 1
-    [1] => 2
-    [2] => 3
-    [3] => 4
-    [4] => 5
-)
-rYKPAK
-FFFFDD
+hashids extension is available
