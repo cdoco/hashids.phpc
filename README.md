@@ -78,7 +78,7 @@ hex.
 $hashids = new Hashids();
 
 $hash = $hashids->encodeHex('FFFFDD'); // rYKPAK
-$numbers = $hashids->decodeHex($hash); // FFFFDD
+$hex = $hashids->decodeHex($hash); // FFFFDD
 ```
 
 Curses! #$%@

@@ -1,10 +1,27 @@
 <?php
-//encode
-echo (new Hashids())->encode(1, 2, 3, 4, 5) . "\n";
-echo (new Hashids())->encode([1, 2, 3, 4, 5]) . "\n";
+
+$hashids = new Hashids();
+
+$hash = $hashids->encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
+$numbers = $hashids->decode($hash); // [1, 2, 3, 4, 5]
+
+echo $hash;
+print_r($numbers);
+
+//or would you prefer to use a static method call
+$hash = Hashids::encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
+$numbers = Hashids::decode($hash); // [1, 2, 3, 4, 5]
+
+echo $hash;
+print_r($numbers);
+
 //decode
-var_dump((new Hashids())->decode("ADf9h9i0sQ"));
+$numbers = $hashids->decode("ADf9h9i0sQ");
+print_r($numbers);
+
 //encodeHex
-echo (new Hashids('hhhhh', 30))->encodeHex('C0FFEE') . "\n";
-//decodeHex
-echo (new Hashids('hhhhh', 30))->decodeHex('xvwLqB4XMbJAEbXxOw6N5lO92YQrKG') . "\n";
+$hash = $hashids->encodeHex('FFFFDD'); // rYKPAK
+$hex = $hashids->decodeHex('rYKPAK'); // FFFFDD
+
+echo $hash;
+echo $hex;
