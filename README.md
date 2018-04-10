@@ -42,11 +42,15 @@ $hashids = new Hashids();
 
 $hash = $hashids->encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
 $numbers = $hashids->decode($hash); // [1, 2, 3, 4, 5]
+
+//or would you prefer to use a static method call
+$hash = Hashids::encode(1, 2, 3, 4, 5); // ADf9h9i0sQ
+$numbers = Hashids::decode($hash); // [1, 2, 3, 4, 5]
 ```
 
 ## Performance
 
-php extension and native php performance contrast.
+php extension and only php code performance contrast.
 
 ![performance comparison](https://cdoco.com/images/performance.png "performance comparison")
 
