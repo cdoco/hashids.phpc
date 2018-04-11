@@ -93,7 +93,6 @@ hashids_t * hashids_init(const char *salt, size_t min_hash_length, const char *a
 /* encode */
 size_t hashids_estimate_encoded_size(hashids_t *hashids, size_t numbers_count, unsigned long long *numbers);
 size_t hashids_encode(hashids_t *hashids, char *buffer, size_t numbers_count, unsigned long long *numbers);
-size_t hashids_encode_v(hashids_t *hashids, char *buffer, size_t numbers_count, ...);
 size_t hashids_encode_hex(hashids_t *hashids, char *buffer, const char *hex_str);
 
 /* decode */
