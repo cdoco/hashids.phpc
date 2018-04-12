@@ -39,9 +39,9 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo__construct, 0, 0, 3)
 ZEND_END_ARG_INFO()
 
 PHP_INI_BEGIN()
-    STD_PHP_INI_ENTRY("hashids.salt", HASHIDS_DEFAULT_SALT, PHP_INI_ALL, OnUpdateStringUnempty, salt, zend_hashids_globals, hashids_globals)
+    STD_PHP_INI_ENTRY("hashids.salt", HASHIDS_DEFAULT_SALT, PHP_INI_ALL, OnUpdateString, salt, zend_hashids_globals, hashids_globals)
     STD_PHP_INI_ENTRY("hashids.min_hash_length", "0", PHP_INI_ALL, OnUpdateLong, min_hash_length, zend_hashids_globals, hashids_globals)
-    STD_PHP_INI_ENTRY("hashids.alphabet", HASHIDS_DEFAULT_ALPHABET, PHP_INI_ALL, OnUpdateStringUnempty, alphabet, zend_hashids_globals, hashids_globals)
+    STD_PHP_INI_ENTRY("hashids.alphabet", HASHIDS_DEFAULT_ALPHABET, PHP_INI_ALL, OnUpdateString, alphabet, zend_hashids_globals, hashids_globals)
 PHP_INI_END()
 
 /* branch prediction hinting */
@@ -362,7 +362,7 @@ PHP_MINIT_FUNCTION(hashids)
 PHP_MSHUTDOWN_FUNCTION(hashids)
 {
     UNREGISTER_INI_ENTRIES();
-    
+
     //free
     hashids_free(hashids_entry);
     return SUCCESS;
