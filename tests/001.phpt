@@ -1,5 +1,5 @@
 --TEST--
-Check for hashids presence
+Check for Hashids presence
 --SKIPIF--
 <?php if (!extension_loaded("hashids")) print "skip"; ?>
 --FILE--
