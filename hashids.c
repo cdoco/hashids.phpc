@@ -339,6 +339,7 @@ static const zend_function_entry hashids_methods[] = {
     PHP_FE_END
 };
 
+/* GINIT */
 PHP_GINIT_FUNCTION(hashids) {
     hashids_globals->salt = NULL;
     hashids_globals->min_hash_length = 0;
@@ -360,6 +361,8 @@ PHP_MINIT_FUNCTION(hashids)
 
 PHP_MSHUTDOWN_FUNCTION(hashids)
 {
+    UNREGISTER_INI_ENTRIES();
+    
     //free
     hashids_free(hashids_entry);
     return SUCCESS;
@@ -949,7 +952,11 @@ zend_module_entry hashids_module_entry = {
     NULL,
     PHP_MINFO(hashids),
     PHP_HASHIDS_VERSION,
-    STANDARD_MODULE_PROPERTIES
+    PHP_MODULE_GLOBALS(hashids),
+    PHP_GINIT(hashids),
+    NULL,
+    NULL,
+    STANDARD_MODULE_PROPERTIES_EX
 };
 
 #ifdef COMPILE_DL_HASHIDS
