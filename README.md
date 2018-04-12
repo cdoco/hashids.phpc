@@ -1,5 +1,6 @@
 [![hashids](http://hashids.org/public/img/hashids.gif "Hashids")](http://hashids.org/)
 
+[![Build Status][travis-image]][travis-url]
 [![License][license-image]][license-url]
 
 > A php extension for Hashids
@@ -91,6 +92,9 @@ License
 -------
 
 MIT License. See the [LICENSE](LICENSE) file. You can use Hashids in open source projects and commercial products. Don't break the Internet. Kthxbye.
+
+[travis-url]: https://travis-ci.org/cdoco/hashids.phpc
+[travis-image]: https://travis-ci.org/cdoco/hashids.phpc.svg
 
 [license-url]: https://github.com/cdoco/grank/blob/master/LICENSE
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
