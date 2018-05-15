@@ -964,7 +964,7 @@ size_t hashids_decode_hex(hashids_t *hashids, char *str, char *output)
 zend_module_entry hashids_module_entry = {
     STANDARD_MODULE_HEADER,
     "hashids",
-    hashids_methods,
+    NULL,
     PHP_MINIT(hashids),
     PHP_MSHUTDOWN(hashids),
     NULL,
