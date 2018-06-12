@@ -1,6 +1,8 @@
 [![hashids](http://hashids.org/public/img/hashids.gif "Hashids")](http://hashids.org/)
 
 [![Build Status][travis-image]][travis-url]
+![PHP](https://img.shields.io/badge/PHP-%3E%3D7.0.0-blue.svg)
+![PHP](https://img.shields.io/github/repo-size/cdoco/hashids.phpc.svg)
 
 > A php extension for Hashids
 
