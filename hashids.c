@@ -32,11 +32,28 @@ hashids_t *hashids_entry;
 
 ZEND_DECLARE_MODULE_GLOBALS(hashids)
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo__construct, 0, 0, 3)
+ZEND_BEGIN_ARG_INFO(arginfo_hashids_construct, 0)
     ZEND_ARG_INFO(0, salt)
     ZEND_ARG_INFO(0, min_hash_length)
     ZEND_ARG_INFO(0, alphabet)
 ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO(arginfo_hashids_encode, 0)
+    ZEND_ARG_VARIADIC_INFO(0, argc)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO(arginfo_hashids_decode, 0)
+    ZEND_ARG_INFO(0, hash)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO(arginfo_hashids_encode_hex, 0)
+    ZEND_ARG_INFO(0, hex_str)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO(arginfo_hashids_decode_hex, 0)
+    ZEND_ARG_INFO(0, hash)
+ZEND_END_ARG_INFO()
+
 
 PHP_INI_BEGIN()
     STD_PHP_INI_ENTRY("hashids.salt", HASHIDS_DEFAULT_SALT, PHP_INI_ALL, OnUpdateString, salt, zend_hashids_globals, hashids_globals)
@@ -259,7 +276,7 @@ PHP_METHOD(hashids, encode) {
 
         ZEND_HASH_FOREACH_NUM_KEY_VAL(Z_ARRVAL(args[0]), i, value) {
             numbers[i] = Z_LVAL_P(value);
-        }ZEND_HASH_FOREACH_END();
+        } ZEND_HASH_FOREACH_END();
     } else {
         //get all the variables
         for (i = 0; i < argc; i++) {
@@ -331,11 +348,11 @@ PHP_METHOD(hashids, decodeHex) {
 }
 
 static const zend_function_entry hashids_methods[] = {
-    PHP_ME(hashids, __construct, arginfo__construct, ZEND_ACC_CTOR | ZEND_ACC_PUBLIC)
-    PHP_ME(hashids, encode, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
-    PHP_ME(hashids, decode, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
-    PHP_ME(hashids, encodeHex, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
-    PHP_ME(hashids, decodeHex, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, __construct, arginfo_hashids_construct, ZEND_ACC_CTOR | ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, encode, arginfo_hashids_encode, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, decode, arginfo_hashids_decode, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, encodeHex, arginfo_hashids_encode_hex, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
+    PHP_ME(hashids, decodeHex, arginfo_hashids_decode_hex, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
     PHP_FE_END
 };
 
