@@ -92,7 +92,7 @@ This code was written with the intent of placing created ids in visible places, 
 License
 -------
 
-MIT License. See the [LICENSE](LICENSE) file. You can use Hashids in open source projects and commercial products. Don't break the Internet. Kthxbye.
+PHP License. See the [LICENSE](LICENSE) file.
 
 [travis-url]: https://travis-ci.org/cdoco/hashids.phpc
 [travis-image]: https://travis-ci.org/cdoco/hashids.phpc.svg
