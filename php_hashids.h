@@ -24,7 +24,7 @@
 extern zend_module_entry hashids_module_entry;
 #define phpext_hashids_ptr &hashids_module_entry
 
-#define PHP_HASHIDS_VERSION "0.1.0" /* Replace with version number for your extension */
+#define PHP_HASHIDS_VERSION "1.0.0-rc"
 
 /*
 Copyright (C) 2014 Latchezar Tzvetkoff
