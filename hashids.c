@@ -388,8 +388,10 @@ PHP_MSHUTDOWN_FUNCTION(hashids)
 PHP_MINFO_FUNCTION(hashids)
 {
     php_info_print_table_start();
-    php_info_print_table_header(2, "hashids support", "enabled");
+    php_info_print_table_header(2, "Hashids support", "enabled");
     php_info_print_table_row(2, "Version", PHP_HASHIDS_VERSION);
+    php_info_print_table_row(2, "Author", "ZiHang Gao <ocdoco@gmail.com>");
+    php_info_print_table_row(2, "Issues", "https://github.com/cdoco/hashids.phpc/issues");
     php_info_print_table_end();
 
     DISPLAY_INI_ENTRIES();
