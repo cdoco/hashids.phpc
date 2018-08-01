@@ -21,30 +21,15 @@
 #ifndef PHP_HASHIDS_H
 #define PHP_HASHIDS_H
 
+#include <php.h>
+#include <php_ini.h>
+#include <ext/standard/info.h>
+
 extern zend_module_entry hashids_module_entry;
 #define phpext_hashids_ptr &hashids_module_entry
 
-#define PHP_HASHIDS_VERSION "1.0.0-rc"
+#define PHP_HASHIDS_VERSION "1.0.0"
 
-/*
-Copyright (C) 2014 Latchezar Tzvetkoff
-
-Permission is hereby granted, free of charge, 
-to any person obtaining a copy of this software and associated documentation files (the "Software"), 
-to deal in the Software without restriction, including without limitation the rights to use, copy, 
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
-and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial 
-portions of the Software. d
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
-INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
-DEALINGS IN THE SOFTWARE.
-*/
 /* minimal alphabet length */
 #define HASHIDS_MIN_ALPHABET_LENGTH 16u
 
@@ -118,14 +103,6 @@ size_t hashids_encode_hex(hashids_t *hashids, char *buffer, const char *hex_str)
 size_t hashids_numbers_count(hashids_t *hashids, char *str);
 size_t hashids_decode(hashids_t *hashids, char *str, unsigned long long *numbers);
 size_t hashids_decode_hex(hashids_t *hashids, char *str, char *output);
-
-#ifdef PHP_WIN32
-#	define PHP_HASHIDS_API __declspec(dllexport)
-#elif defined(__GNUC__) && __GNUC__ >= 4
-#	define PHP_HASHIDS_API __attribute__ ((visibility("default")))
-#else
-#	define PHP_HASHIDS_API
-#endif
 
 #ifdef ZTS
 #include "TSRM.h"
